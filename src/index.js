@@ -4,6 +4,7 @@ import toast from 'js-simple-toast'
 
 console.log('TOAST', toast)
 let filename
+let timeout
 const toastDuration = 2000
 const player = new Player('https://play-spectrum.herokuapp.com/deploy.mp3')
 player
@@ -36,7 +37,8 @@ dragDrop('body', function (files) {
 
 function showToast (message) {
   if (toast.toast && toast.toast.style.display !== 'none') {
-    setTimeout(() => showToast(message, toastDuration), 100)
+    clearTimeout(timeout)
+    timeout = setTimeout(() => showToast(message, toastDuration), 100)
     return
   }
 
