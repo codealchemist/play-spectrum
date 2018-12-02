@@ -1,0 +1,39 @@
+{
+  "name": "play-spectrum",
+  "version": "1.0.0",
+  "description": "Play audio in the browser with a fullscreen spectrum analyzer.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack --mode=production",
+    "dist": "http-server dist",
+    "test": "standard-focus"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codealchemist/play-spectrum.git"
+  },
+  "keywords": [
+    "spectrum",
+    "analyzer",
+    "audio",
+    "webaudio"
+  ],
+  "author": "Alberto Miranda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codealchemist/play-spectrum/issues"
+  },
+  "homepage": "https://github.com/codealchemist/play-spectrum#readme",
+  "devDependencies": {
+    "standard-focus": "^1.1.2",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "drag-drop": "^4.2.0",
+    "js-simple-toast": "^1.0.3",
+    "uplayer": "^1.2.2"
+  }
+}
