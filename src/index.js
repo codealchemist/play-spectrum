@@ -2,22 +2,30 @@ import Player from 'uplayer'
 import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
 
+console.log('TOAST', toast)
+let filename
+const toastDuration = 2000
 const player = new Player('https://play-spectrum.herokuapp.com/deploy.mp3')
 player
   .debug(true)
+  .on('stop', () => showToast('Stop.'))
+  .on('pause', () => showToast('Pause.'))
+  .on('play', () => showToast(`Playing ${filename}...`))
+  .on('forward', seconds => showToast(`Forward ${seconds} seconds.`))
+  .on('rewind', seconds => showToast(`Rewind ${seconds} seconds.`))
   .useKeyboard()
   .load()
   .play()
-toast.show('Drop an audio file to start playing!')
+showToast('Drop an audio file to start playing!')
 
 dragDrop('body', function (files) {
   const file = files[0]
   console.log('GOT FILE:', file)
+  filename = file.name
   const reader = new window.FileReader()
   reader.addEventListener('load', e => {
     const data = e.target.result
     player.load(data).play()
-    toast.show(`Playing ${file.name}...`)
   })
   reader.addEventListener('error', err => {
     console.error('FileReader error' + err)
@@ -25,3 +33,12 @@ dragDrop('body', function (files) {
   })
   reader.readAsArrayBuffer(file)
 })
+
+function showToast (message) {
+  if (toast.toast && toast.toast.style.display !== 'none') {
+    setTimeout(() => showToast(message, toastDuration), 100)
+    return
+  }
+
+  toast.show(message, toastDuration)
+}
