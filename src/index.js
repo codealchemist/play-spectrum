@@ -2,8 +2,12 @@ import Player from 'uplayer'
 import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
 
-const player = new Player()
-player.debug(true).useKeyboard()
+const player = new Player('https://play-spectrum.herokuapp.com/deploy.mp3')
+player
+  .debug(true)
+  .useKeyboard()
+  .load()
+  .play()
 toast.show('Drop an audio file to start playing!')
 
 dragDrop('body', function (files) {
