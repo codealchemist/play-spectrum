@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "drag-drop": "^4.2.0",
+    "http-server": "^0.11.1",
     "js-simple-toast": "^1.0.3",
     "uplayer": "^1.2.2"
   }
