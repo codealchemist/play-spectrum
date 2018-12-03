@@ -6,7 +6,7 @@ import fullscreen from './fullscreen'
 fullscreen.set()
 
 console.log('TOAST', toast)
-let filename
+let filename = 'deploy.mp3'
 let timeout
 const toastDuration = 2000
 const spectrum = new Spectrum()
