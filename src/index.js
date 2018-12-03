@@ -6,7 +6,7 @@ import fullscreen from './fullscreen'
 fullscreen.set()
 
 console.log('TOAST', toast)
-let filename = 'deploy.mp3'
+let filename
 let timeout
 const toastDuration = 2000
 const spectrum = new Spectrum()
@@ -16,7 +16,7 @@ player
   .on('stop', () => showToast('Stop.'))
   .on('pause', () => showToast('Pause.'))
   .on('play', () => {
-    showToast(`Playing ${filename}...`)
+    if (filename) showToast(`Playing ${filename}...`)
     spectrum
       .setAnalyzer({ audioContext: player.context, audioBuffer: player.buffer, audioSource: player.source })
       .render()
