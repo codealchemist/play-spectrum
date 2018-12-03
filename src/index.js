@@ -1,17 +1,26 @@
 import Player from 'uplayer'
 import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
+import Spectrum from 'spectrum'
+import fullscreen from './fullscreen'
+fullscreen.set()
 
 console.log('TOAST', toast)
 let filename
 let timeout
 const toastDuration = 2000
+const spectrum = new Spectrum()
 const player = new Player('https://play-spectrum.herokuapp.com/deploy.mp3')
 player
   .debug(true)
   .on('stop', () => showToast('Stop.'))
   .on('pause', () => showToast('Pause.'))
-  .on('play', () => showToast(`Playing ${filename}...`))
+  .on('play', () => {
+    showToast(`Playing ${filename}...`)
+    spectrum
+      .setAnalyzer({ audioContext: player.context, audioBuffer: player.buffer, audioSource: player.source })
+      .render()
+  })
   .on('forward', seconds => showToast(`Forward ${seconds} seconds.`))
   .on('rewind', seconds => showToast(`Rewind ${seconds} seconds.`))
   .useKeyboard()
