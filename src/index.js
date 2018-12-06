@@ -1,15 +1,21 @@
 import Player from 'uplayer'
 import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
-import { USpectrumWave } from 'uspectrum'
+import { USpectrumWave, USpectrumHeatmap } from 'uspectrum'
 import fullscreen from './fullscreen'
 fullscreen.set()
 
-console.log('USpectrumWave', USpectrumWave)
+// const $canvas1 = document.createElement('canvas')
+// document.body.appendChild($canvas1)
+// const $canvas2 = document.createElement('canvas')
+// document.body.appendChild($canvas2)
+
+const spectrumAnalyzers = [new USpectrumWave(), new USpectrumHeatmap()]
 let filename
 let timeout
 const toastDuration = 2000
-const spectrum = new USpectrumWave()
+let selectedSpectrumAnalyzer = 0
+
 const player = new Player('https://play-spectrum.herokuapp.com/deploy.mp3')
 player
   .debug(true)
@@ -17,7 +23,9 @@ player
   .on('pause', () => showToast('Pause.'))
   .on('play', () => {
     if (filename) showToast(`Playing ${filename}...`)
-    spectrum.init({ context: player.context, buffer: player.buffer, source: player.source }).render()
+    spectrumAnalyzers[selectedSpectrumAnalyzer]
+      .init({ context: player.context, buffer: player.buffer, source: player.source })
+      .render()
   })
   .on('forward', seconds => showToast(`Forward ${seconds} seconds.`))
   .on('rewind', seconds => showToast(`Rewind ${seconds} seconds.`))
@@ -51,3 +59,24 @@ function showToast (message) {
 
   toast.show(message, toastDuration)
 }
+
+// Switch spectrum analyzer with "s" key.
+document.body.addEventListener('keydown', ({ key }) => {
+  if (key !== 's') return
+
+  const spectrum = spectrumAnalyzers[selectedSpectrumAnalyzer]
+  spectrum.$canvas.style.display = 'none'
+
+  selectedSpectrumAnalyzer++
+  if (selectedSpectrumAnalyzer >= spectrumAnalyzers.length) {
+    selectedSpectrumAnalyzer = 0
+  }
+
+  const newSpectrum = spectrumAnalyzers[selectedSpectrumAnalyzer]
+  newSpectrum.$canvas.style.display = 'block'
+
+  console.log('Spectrum Analyzer:', selectedSpectrumAnalyzer)
+  spectrumAnalyzers[selectedSpectrumAnalyzer]
+    .init({ context: player.context, buffer: player.buffer, source: player.source })
+    .render()
+})
