@@ -1,16 +1,11 @@
 import Player from 'uplayer'
 import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
-import { USpectrumWave, USpectrumHeatmap } from 'uspectrum'
+import { USpectrumWave, USpectrumHeatmap, USpectrumCircle } from 'uspectrum'
 import fullscreen from './fullscreen'
 fullscreen.set()
 
-// const $canvas1 = document.createElement('canvas')
-// document.body.appendChild($canvas1)
-// const $canvas2 = document.createElement('canvas')
-// document.body.appendChild($canvas2)
-
-const spectrumAnalyzers = [new USpectrumWave(), new USpectrumHeatmap()]
+const spectrumAnalyzers = [new USpectrumWave(), new USpectrumHeatmap(), new USpectrumCircle()]
 let filename
 let timeout
 const toastDuration = 2000
