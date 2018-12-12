@@ -26,16 +26,20 @@
   },
   "homepage": "https://github.com/codealchemist/play-spectrum#readme",
   "devDependencies": {
+    "css-loader": "^2.0.0",
     "standard-focus": "^1.1.2",
+    "style-loader": "^0.23.1",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "clipboard": "^2.0.4",
     "drag-drop": "^4.2.0",
     "http-server": "^0.11.1",
     "js-simple-toast": "^1.0.3",
     "uplayer": "^1.3.1",
-    "uspectrum": "^1.2.0"
+    "uspectrum": "^1.2.0",
+    "webtorrent": "^0.103.0"
   }
 }

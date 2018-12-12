@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
@@ -26,5 +27,6 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
-  }
+  },
+  plugins: [new webpack.EnvironmentPlugin(['URL_SHORTENER_KEY'])]
 }
