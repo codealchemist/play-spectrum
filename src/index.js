@@ -3,6 +3,17 @@ import dragDrop from 'drag-drop'
 import toast from 'js-simple-toast'
 import { USpectrumWave, USpectrumHeatmap, USpectrumCircle } from 'uspectrum'
 import fullscreen from './fullscreen'
+import torrentLoader from './torrent-loader'
+
+// Set torrent loader.
+torrentLoader.autoload().onTorrent(torrent => {
+  const [file] = torrent.files
+  file.getBuffer((err, data) => {
+    if (err) throw err
+    console.log('---- got audio from torrent', data.buffer)
+    player.load(data.buffer).play()
+  })
+})
 fullscreen.set()
 
 const spectrumAnalyzers = [new USpectrumWave(), new USpectrumHeatmap(), new USpectrumCircle()]
@@ -32,6 +43,8 @@ showToast('Drop an audio file to start playing!')
 dragDrop('body', function (files) {
   const file = files[0]
   console.log('GOT FILE:', file)
+  torrentLoader.seed(file)
+
   filename = file.name
   const reader = new window.FileReader()
   reader.addEventListener('load', e => {
